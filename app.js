@@ -6,7 +6,7 @@ $(document).ready(function() {
     $("#submit").click(function() {
       var city = $("#city").val();
       var apiKey = "mykey";
-      var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+      var apiUrl = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
   
       $.ajax({
         url: apiUrl,
@@ -17,4 +17,6 @@ $(document).ready(function() {
         }
       });
     });
-  });
+  });''
+
+  
