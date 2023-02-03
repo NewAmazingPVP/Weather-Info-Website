@@ -5,33 +5,39 @@
   <script src="app.js"> </script>
   <style>
     input[type="text"] {
-      background-position-x: center;
       width: 300px;
       height: 35px;
       font-size: 18px;
       padding: 10px;
       margin: 10px 0;
+      background-image: linear-gradient(to right, 
+                                        hsl(0, 100%, 50%), 
+                                        hsl(10, 100%, 50%), 
+                                        hsl(20, 100%, 50%), 
+                                        hsl(30, 100%, 50%), 
+                                        hsl(40, 100%, 50%));
     }
 
     button {
-      background-position-x: center;
       width: 100px;
       height: 40px;
       font-size: 18px;
-      background-color: yellow;
+      background-color: hsl(0, 100%, 50%);
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.2s;
     }
 
     button:hover {
-      background-color: chocolate;
+      background-color: hsl(120, 100%, 50%);
     }
 
     #output {
       margin-top: 20px;
       font-size: 18px;
+      color: hsl(240, 100%, 50%);
     }
   </style>
 </head>
