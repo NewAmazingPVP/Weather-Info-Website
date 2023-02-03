@@ -1,45 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $("#getWeather").click(function() {
-        var city = $("#city").val();
-        var apiKey = "af527d7292e58a1b188954167ce7b7d2";
-        var apiUrl =
-          "https://api.openweathermap.org/data/2.5/weather?q=" +
-          city +
-          "&appid=" +
-          apiKey;
-
-        $.getJSON(apiUrl, function(data) {
-          var weather = data.weather[0].description;
-          var temp = data.main.temp - 273.15;
-          var humidity = data.main.humidity;
-          var wind = data.wind.speed;
-
-          $("#output").html(
-            "Weather: " +
-              weather +
-              "<br>Temperature: " +
-              temp.toFixed(2) +
-              "°C" +
-              "<br>Humidity: " +
-              humidity +
-              "%" +
-              "<br>Wind Speed: " +
-              wind +
-              "m/s"
-          );
-        });
-      });
-    });
-  </script>
-</head>
-<body>
-  <input type="text" id="city">
-  <button id="getWeather">Get Weather</button>
-  <div id="output"></div>
-</body>
+  <head>
+    <title>Weather App</title>
+  </head>
+  <body>
+    <h1>Weather App</h1>
+    <form>
+      <input type="text" id="city" placeholder="Enter city name">
+      <button type="button" id="submit">Get Weather</button>
+    </form>
+    <div id="weather-info">
+      <!-- Weather information will be displayed here -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
