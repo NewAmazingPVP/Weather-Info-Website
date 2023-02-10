@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $("#getWeather").click(function() {
     var city = $("#city").val();
+    //please dont steal the api key this project was purely made to help myself learn
     var apiKey = "af527d7292e58a1b188954167ce7b7d2";
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
