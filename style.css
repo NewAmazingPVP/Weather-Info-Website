@@ -13,7 +13,16 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
-    margin-left: 500px;
+    margin-left: auto
+  }
+
+  #city {
+    color: red;
+  }
+
+  #question {
+    color: darkorange;
+    font-size: 75px;  
   }
  
   button {
