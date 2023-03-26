@@ -2,7 +2,7 @@
 $(document).ready(function() {
 
   // Listen for a click on the "Get Weather" button
-  $("#getWeather").click(function() {
+  jQuery("#getWeather").click(function() {
 
     // Get the value entered in the input field with ID "city"
     var city = $("#city").val();
@@ -39,9 +39,9 @@ $(document).ready(function() {
         sunriseMinute = "0" + sunriseMinute;
       }
 
-
+      //note: $ is the same as jQuery
       // Display the weather data in the HTML element with ID "output"
-      $("#output").html(
+      jQuery("#output").html(
         "Weather: " +
           weather +
           "<br>Temperature: " +
