@@ -1,16 +1,13 @@
 name: Weather Job
-
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Weather App
-      env:
-        WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-      run: node app.js
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Weather App
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: node app.js
