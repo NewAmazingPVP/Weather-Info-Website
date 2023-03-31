@@ -1,9 +1,5 @@
 
 name: CI
-
-# Add this line
-env:
-  GITHUB_ACTION: ${{ toJson(github.action) }}
   
 on:
   push:
