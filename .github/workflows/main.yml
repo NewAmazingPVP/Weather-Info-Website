@@ -1,27 +1,28 @@
-name: Weather Job
+name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.5.2
-        with:
-          node-version: '16.x'
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v2.5.2
+      with:
+        node-version: '16.x'
 
-      - name: Weather App
-        env:
-          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-        run: |
-          cd app.js
-          npm install
-          node app.js
+    - name: Install dependencies
+      run: npm install
+
+    - name: Set up environment variables
+      env:
+        WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+      run: echo $WEATHER_API_KEY > .env
+
+    - name: Run tests
+      run: npm test
