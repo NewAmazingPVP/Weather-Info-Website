@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     // Set the API key to be used to retrieve weather data
     // NOTE: Do not copy this key, it is for demonstration purposes only
-    var apiKey = "af527d7292e58a1b188954167ce7b7d2";
+    var apiKey = WEATHER_API_KEY;
 
     // Construct the URL for the API request using the city and API key
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
