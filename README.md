@@ -6,13 +6,19 @@ A [website](https://newamazingpvp.github.io/Weather-Info-Website/) that shows we
 
 - Description of current weather condition
 
-- Temperature (in Celsius)
+- Temperature in Celsius and Fahrenheit (includes Min/Max, feels like, etc)
 
 - Humidity (percentage)
 
 - Wind speed (m/s)
 
-- Sunrise time (in est)
+- Wind Direction
+
+- Clouds
+
+- Air Pressure
+
+- Visibility (in km and miles)
 
 # Planned Features
 
