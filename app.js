@@ -1,62 +1,58 @@
-// Wait for the document to be fully loaded before running the script
 $(document).ready(function() {
-
-  // Listen for a click on the "Get Weather" button
   jQuery("#getWeather").click(function() {
-
-    // Get the value entered in the input field with ID "city"
     var city = $("#city").val();
-
-    // Set the API key to be used to retrieve weather data
-    // NOTE: Do not copy this key, it is for demonstration purposes only
     var apiKey = "af527d7292e58a1b188954167ce7b7d2";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=" + apiKey;
 
-    // Construct the URL for the API request using the city and API key
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
-
-    // Send a GET request to the API and execute a callback function when the response is received
     $.getJSON(apiUrl, function(data) {
-
-      // Extract the weather description from the API response
       var weather = data.weather[0].description;
-
-      // Convert the temperature from Kelvin to Celsius and round to 2 decimal places
-      var temp = data.main.temp - 273.15;
-
-      // Extract the humidity value from the API response
+      var temp_c = data.main.temp;
+      var temp_f = (temp_c * 9/5) + 32;
+      var feels_like_c = data.main.feels_like;
+      var feels_like_f = (feels_like_c * 9/5) + 32;
+      var temp_min_c = data.main.temp_min;
+      var temp_min_f = (temp_min_c * 9/5) + 32;
+      var temp_max_c = data.main.temp_max;
+      var temp_max_f = (temp_max_c * 9/5) + 32;
       var humidity = data.main.humidity;
+      var wind_speed = data.wind.speed;
+      var wind_deg = data.wind.deg;
+      var clouds = data.clouds.all;
+      var pressure = data.main.pressure;
+      var visibility_m = data.visibility / 1609.34;
+      var visibility_km = data.visibility / 1000;
 
-      // Extract the wind speed value from the API response
-      var wind = data.wind.speed;
-
-      var sunrise = data.sys.sunrise;
-
-      var sunriseDate = new Date(sunrise * 1000); // create new Date object from Unix timestamp
-      var sunriseHour = sunriseDate.getHours(); // get hour value from Date object
-      var sunriseMinute = sunriseDate.getMinutes(); // get minute value from
-      if (sunriseMinute < 10)
-      {
-        sunriseMinute = "0" + sunriseMinute;
+      if (wind_deg > 337.5 || wind_deg <= 22.5) {
+        var wind_dir = "N";
+      } else if (wind_deg > 22.5 && wind_deg <= 67.5) {
+        var wind_dir = "NE";
+      } else if (wind_deg > 67.5 && wind_deg <= 112.5) {
+        var wind_dir = "E";
+      } else if (wind_deg > 112.5 && wind_deg <= 157.5) {
+        var wind_dir = "SE";
+      } else if (wind_deg > 157.5 && wind_deg <= 202.5) {
+        var wind_dir = "S";
+      } else if (wind_deg > 202.5 && wind_deg <= 247.5) {
+        var wind_dir = "SW";
+      } else if (wind_deg > 247.5 && wind_deg <= 292.5) {
+        var wind_dir = "W";
+      } else {
+        var wind_dir = "NW";
       }
 
       //note: $ is the same as jQuery
-      // Display the weather data in the HTML element with ID "output"
       jQuery("#output").html(
-        "Weather: " +
-          weather +
-          "<br>Temperature: " +
-          temp.toFixed(2) +
-          "°C" +
-          "<br>Humidity: " +
-          humidity +
-          "%" +
-          "<br>Wind Speed: " +
-          wind +
-          "m/s" +
-          "<br> Sunrise: " +
-          sunriseHour +
-          ":" +
-          sunriseMinute + " est"
+        "Weather: " + weather +
+        "<br>Temperature: " + temp_c.toFixed(2) + "°C / " + temp_f.toFixed(2) + "°F" +
+        "<br>Feels like: " + feels_like_c.toFixed(2) + "°C / " + feels_like_f.toFixed(2) + "°F" +
+        "<br>Minimum Temperature: " + temp_min_c.toFixed(2) + "°C / " + temp_min_f.toFixed(2) + "°F" +
+        "<br>Maximum Temperature: " + temp_max_c.toFixed(2) + "°C / " + temp_max_f.toFixed(2) + "°F" +
+        "<br>Humidity: " + humidity + "%" +
+        "<br>Wind Speed: " + wind_speed + "m/s" +
+        "<br>Wind Direction: " + wind_dir + " " +"(" + wind_deg + "°" + ")" +
+        "<br>Clouds: " + clouds + "%" +
+        "<br>Pressure: " + pressure + " hPa" +
+        "<br>Visibility: " + visibility_km.toFixed(2) + " km / " + visibility_m.toFixed(2) + " miles"
       );
     });
   });
