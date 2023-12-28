@@ -1,9 +1,7 @@
 name: Build and Deploy
 
 on:
-  push:
-    branches:
-      - main
+  push: {branches: ["master", "main"]}
 
 jobs:
   build-and-deploy:
@@ -21,10 +19,9 @@ jobs:
       - name: Replace API key and build
         run: |
           sed -i 's/process.env.API_KEY/"'$API_KEY'"/' app.js
-          # Assuming you don't need a build step for your JavaScript file
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          publish_dir: .  # Deploy the entire repository
+          publish_dir: .  
           github_token: ${{ secrets.GITHUB_TOKEN }}
