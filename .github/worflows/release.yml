@@ -1,0 +1,30 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Replace API key and build
+        run: |
+          sed -i 's/process.env.API_KEY/"'$API_KEY'"/' app.js
+          # Assuming you don't need a build step for your JavaScript file
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: .  # Deploy the entire repository
+          github_token: ${{ secrets.GITHUB_TOKEN }}
