@@ -3,6 +3,8 @@ name: Build and Deploy
 on:
   push: {branches: ["master", "main"]}
 
+permissions: write-all
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -18,10 +20,17 @@ jobs:
 
       - name: Replace API key and build
         run: |
-          sed -i 's/process.env.API_KEY/"'$API_KEY'"/' app.js
+          sed -i 's/process.env.API_KEY/"'$INPUT_API_KEY'"/' app.js
+          npm install  # If needed, install dependencies
+          npm run build  # Adjust this based on your build process
+        env:
+          INPUT_API_KEY: ${{ secrets.API_KEY }}
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          publish_dir: .  
-          github_token: ${{ secrets.AUTH_TOKEN }}
+          # upload entire directory
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
