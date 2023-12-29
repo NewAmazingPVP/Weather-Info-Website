@@ -1,7 +1,7 @@
 $(document).ready(function() {
   jQuery("#getWeather").click(function() {
     var city = $("#city").val();
-    var apiKey = "";
+    var apiKey = process.env.INPUT_API_KEY;
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=" + apiKey;
 
     $.getJSON(apiUrl, function(data) {
