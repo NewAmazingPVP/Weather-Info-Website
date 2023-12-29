@@ -1,7 +1,9 @@
 name: Build and Deploy
 
 on:
-  push: {branches: ["master", "main"]}
+  push:
+    branches:
+      - main
 
 permissions: write-all
 
@@ -10,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v2
 
       - name: Set up Node.js
@@ -18,19 +20,24 @@ jobs:
         with:
           node-version: 14
 
-      - name: Replace API key and build
+      - name: Replace API_KEY in app.js
         run: |
-          sed -i 's/process.env.API_KEY/"'$INPUT_API_KEY'"/' app.js
-          npm install  # If needed, install dependencies
-          npm run build  # Adjust this based on your build process
+          sed -i 's/process.env.API_KEY/"'$API_KEY'"/' app.js
         env:
-          INPUT_API_KEY: ${{ secrets.API_KEY }}
+          API_KEY: ${{ secrets._APIKey }}
 
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # upload entire directory
-          path: '.'
+
+      - name: Create dist directory
+        run: mkdir -p dist
+
+      - name: Copy app.js and index.html
+        run: |
+          cp app.js dist/
+          cp index.html dist/
+
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist
