@@ -20,8 +20,11 @@ jobs:
         run: |
           sed -i 's/process.env.API_KEY/"'$API_KEY'"/' app.js
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          publish_dir: .  
-          github_token: ${{ secrets.AUTH_TOKEN }}
+          # upload entire directory
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
